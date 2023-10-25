@@ -1,0 +1,63 @@
+MathLibrary.h
+#pragma once
+#ifdef MATHLIBRARY_EXPORTS
+#define MATHLIBRARY_API __declspec(dllexport)
+#else
+#define MATHLIBRARY_API __declspec(dllimport)
+#endif
+
+
+namespace MathLibrary
+{
+// This class is exported from the MathLibrary.dll
+class Functions
+{
+public:
+// Returns a + b
+static MATHLIBRARY_API double Add(double a, double b);
+// Returns a * b
+static MATHLIBRARY_API double Multiply(double a, double b);
+// Returns a + (a * b)
+static MATHLIBRARY_API double AddMultiply(double a, double b);
+};
+};
+
+
+
+MathLibrary.cpp
+#include "windows.h"
+#include "MathLibrary.h"
+namespace MathLibrary
+{
+double Functions::Add(double a, double b)
+{
+return a + b;
+}
+double Functions::Multiply(double a, double b)
+{
+return a * b;
+}
+double Functions::AddMultiply(double a, double b)
+{
+return a + (a * b);
+}
+};
+
+
+MathClient.cpp
+#include "windows.h"
+#include <iostream>
+#include "MathLibrary.h"
+using namespace std;
+int main()
+{
+double a = 7.4;
+int b = 99;
+cout << "a + b = " <<
+MathLibrary::Functions::Add(a, b) << endl;
+cout << "a* b = " <<
+MathLibrary::Functions::Multiply(a, b) << endl;
+cout << "a + (a * b) = " <<
+MathLibrary::Functions::AddMultiply(a, b) << endl;
+return 0;
+}
